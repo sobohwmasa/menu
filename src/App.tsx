@@ -59,6 +59,16 @@ export default function App() {
     });
   };
 
+  const resolveImageUrl = (url: string) => {
+    if (!url) return 'https://picsum.photos/seed/bakery/800/600';
+    if (url.startsWith('http')) return url;
+    
+    // Handle local paths for GitHub Pages compatibility
+    const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+    const cleanUrl = url.startsWith('/') ? url : `/${url}`;
+    return `${baseUrl}${cleanUrl}`;
+  };
+
   const removeFromCart = (id: string) => {
     setCart(prev => {
       const existing = prev.find(i => i.id === id);
@@ -212,7 +222,7 @@ export default function App() {
                 >
                   <div className="relative aspect-square md:aspect-[4/3] overflow-hidden">
                     <img 
-                      src={item.imageUrl} 
+                      src={resolveImageUrl(item.imageUrl)} 
                       alt={item.title}
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
