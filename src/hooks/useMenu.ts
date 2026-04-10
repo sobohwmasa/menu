@@ -51,14 +51,30 @@ export function useMenu() {
           header: true,
           skipEmptyLines: true,
           complete: (results) => {
-            const parsedItems = results.data.map((row: any, index: number) => ({
-              id: row.id || String(index),
-              title: row.Title || row.title || '',
-              description: row.Description || row.description || '',
-              price: parseFloat(row.Price || row.price || '0'),
-              category: row.Category || row.category || 'General',
-              imageUrl: row.ImageURL || row.imageUrl || row.image || 'https://picsum.photos/seed/bakery/800/600'
-            }));
+            const parsedItems = results.data.map((rawRow: any, index: number) => {
+              // Clean keys to handle spaces, invisible characters (BOM), and casing
+              const row: any = {};
+              const keys = Object.keys(rawRow);
+              
+              keys.forEach(key => {
+                // Remove invisible characters and trim
+                const cleanKey = key.replace(/[^\x20-\x7E]/g, '').trim().toLowerCase();
+                row[cleanKey] = rawRow[key];
+              });
+
+              // Fallback: if 'title' isn't found by name, use the first column's value
+              const firstColumnKey = keys[0];
+              const titleValue = row.title || row.item || row.name || row.product || rawRow[firstColumnKey] || '';
+
+              return {
+                id: row.id || String(index),
+                title: String(titleValue).trim(),
+                description: String(row.description || row.desc || row.info || '').trim(),
+                price: parseFloat(String(row.price || '0').replace(/[^0-9.]/g, '')),
+                category: String(row.category || row.type || 'General').trim(),
+                imageUrl: String(row.imageurl || row.image || row.photo || row.img || 'https://picsum.photos/seed/bakery/800/600').trim()
+              };
+            });
             setItems(parsedItems);
             setLoading(false);
           },
