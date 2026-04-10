@@ -340,7 +340,7 @@ export default function App() {
                     <div key={item.id} className="flex gap-4 group">
                       <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0">
                         <img 
-                          src={item.imageUrl} 
+                          src={resolveImageUrl(item.imageUrl)} 
                           alt={item.title}
                           className="w-full h-full object-cover"
                         />
