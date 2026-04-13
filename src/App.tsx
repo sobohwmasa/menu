@@ -22,7 +22,7 @@ import { useMenu } from './hooks/useMenu';
 import { MenuItem, CartItem } from './types';
 import { cn } from './lib/utils';
 
-const WHATSAPP_NUMBER = "+96176410196";
+const WHATSAPP_NUMBER = "+96176318711";
 const RESTAURANT_NAME = "صبح و مسا";
 
 export default function App() {
@@ -102,13 +102,13 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-bakery-cream/80 backdrop-blur-md border-b border-bakery-crust/10">
+      <header className="sticky top-0 z-50 bg-bakery-cream/80 backdrop-blur-md border-b border-bakery-crust/10">
         <div className="max-w-7xl mx-auto px-4 h-24 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img 
-              src="/logo.png" 
+              src="https://drive.google.com/thumbnail?id=1TidsVxWLL-N-7CXY4eVMP90Ze_YWoxkR&sz=s800" 
               alt={RESTAURANT_NAME} 
-              className="h-16 w-auto object-contain"
+              className="h-30 w-auto object-contain"
               onError={(e) => {
                 // Fallback if logo.png is not found
                 e.currentTarget.style.display = 'none';
@@ -138,24 +138,7 @@ export default function App() {
       </header>
 
       <main className="flex-grow max-w-7xl mx-auto px-4 py-8 w-full">
-        {/* Hero */}
-        <section className="mb-12 text-center">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-serif mb-4 text-bakery-warm"
-          >
-            Freshly Baked Daily
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-lg text-bakery-crust/70 max-w-2xl mx-auto italic"
-          >
-            Experience the authentic taste of tradition with our artisanal manakish and breads.
-          </motion.p>
-        </section>
+        
 
         {/* Search & Filter */}
         <section className="mb-8 space-y-6">
